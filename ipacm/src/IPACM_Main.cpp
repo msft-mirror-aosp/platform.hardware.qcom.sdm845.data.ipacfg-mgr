@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2013-2017, The Linux Foundation. All rights reserved.
+Copyright (c) 2013-2018, The Linux Foundation. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
@@ -607,6 +607,7 @@ void* ipa_driver_msg_notifier(void *param)
 
 		case WLAN_SWITCH_TO_SCC:
 			IPACMDBG_H("Received WLAN_SWITCH_TO_SCC\n");
+			[[fallthrough]];
 		case WLAN_WDI_ENABLE:
 			IPACMDBG_H("Received WLAN_WDI_ENABLE\n");
 			if (IPACM_Iface::ipacmcfg->isMCC_Mode == true)
@@ -618,6 +619,7 @@ void* ipa_driver_msg_notifier(void *param)
 			continue;
 		case WLAN_SWITCH_TO_MCC:
 			IPACMDBG_H("Received WLAN_SWITCH_TO_MCC\n");
+			[[fallthrough]];
 		case WLAN_WDI_DISABLE:
 			IPACMDBG_H("Received WLAN_WDI_DISABLE\n");
 			if (IPACM_Iface::ipacmcfg->isMCC_Mode == false)
@@ -730,6 +732,13 @@ void* ipa_driver_msg_notifier(void *param)
 				OffloadMng->elrInstance->onOffloadSupportAvailable();
 			}
 			continue;
+#ifdef IPA_WLAN_FW_SSR_EVENT_MAX
+		case WLAN_FWR_SSR_BEFORE_SHUTDOWN:
+                        IPACMDBG_H("Received WLAN_FWR_SSR_BEFORE_SHUTDOWN\n");
+                        evt_data.event = IPA_WLAN_FWR_SSR_BEFORE_SHUTDOWN_NOTICE;
+                        evt_data.evt_data = NULL;
+                        break;
+#endif
 #endif
 #ifdef FEATURE_L2TP
 		case ADD_VLAN_IFACE:
