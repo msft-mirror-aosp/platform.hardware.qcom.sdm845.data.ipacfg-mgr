@@ -18,7 +18,7 @@ LOCAL_C_INCLUDES += $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr/include
 LOCAL_ADDITIONAL_DEPENDENCIES := $(TARGET_OUT_INTERMEDIATES)/KERNEL_OBJ/usr
 
 LOCAL_CFLAGS += -DFEATURE_IPA_ANDROID
-LOCAL_CFLAGS += -DFEATURE_IPACM_HAL -Wall -Werror -Wno-error=macro-redefined
+LOCAL_CFLAGS += -DFEATURE_IPACM_HAL -Wall -Werror -Wno-error=macro-redefined -Wno-enum-compare
 ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
 LOCAL_CFLAGS += -DDEBUG
 endif
@@ -65,9 +65,8 @@ LOCAL_SHARED_LIBRARIES += libipanat
 LOCAL_SHARED_LIBRARIES += libxml2
 LOCAL_SHARED_LIBRARIES += libnfnetlink
 LOCAL_SHARED_LIBRARIES += libnetfilter_conntrack
-LOCAL_SHARED_LIBRARIES += libhwbinder \
+LOCAL_SHARED_LIBRARIES += \
                 libhidlbase \
-                libhidltransport \
                 liblog \
                 libcutils \
                 libdl \
