@@ -1,7 +1,7 @@
 BOARD_PLATFORM_LIST := msm8916
 BOARD_PLATFORM_LIST += msm8909
 BOARD_PLATFORM_LIST += msmnile
-ifneq ($(call is-board-platform-in-list,$(BOARD_PLATFORM_LIST)),true)
+ifeq (,$(call is-board-platform-in-list2,$(BOARD_PLATFORM_LIST)))
 ifneq (,$(filter $(QCOM_BOARD_PLATFORMS),$(TARGET_BOARD_PLATFORM)))
 ifneq (, $(filter aarch64 arm arm64, $(TARGET_ARCH)))
 
@@ -23,6 +23,8 @@ LOCAL_MODULE_PATH_32 := $(TARGET_OUT_VENDOR)/lib
 LOCAL_CFLAGS := -DDEBUG -Wall -Werror
 LOCAL_CFLAGS += -DFEATURE_IPA_ANDROID
 LOCAL_MODULE := libipanat
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-BSD
+LOCAL_LICENSE_CONDITIONS := notice
 LOCAL_MODULE_TAGS := optional
 LOCAL_PRELINK_MODULE := false
 LOCAL_CLANG := true
