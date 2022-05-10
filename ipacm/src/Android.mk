@@ -3,7 +3,7 @@ BOARD_PLATFORM_LIST += msmnile
 BOARD_IPAv3_LIST := msm8998
 BOARD_IPAv3_LIST += sdm845
 BOARD_IPAv3_LIST += sdm710
-ifneq ($(call is-board-platform-in-list,$(BOARD_PLATFORM_LIST)),true)
+ifeq (,$(call is-board-platform-in-list2,$(BOARD_PLATFORM_LIST)))
 ifneq (,$(filter $(QCOM_BOARD_PLATFORMS),$(TARGET_BOARD_PLATFORM)))
 ifneq (, $(filter aarch64 arm arm64, $(TARGET_ARCH)))
 
@@ -23,7 +23,7 @@ ifneq (,$(filter userdebug eng, $(TARGET_BUILD_VARIANT)))
 LOCAL_CFLAGS += -DDEBUG
 endif
 
-ifeq ($(call is-board-platform-in-list,$(BOARD_IPAv3_LIST)),true)
+ifneq (,$(call is-board-platform-in-list2,$(BOARD_IPAv3_LIST)))
 LOCAL_CFLAGS += -DFEATURE_IPA_V3
 endif
 
@@ -57,6 +57,8 @@ LOCAL_SRC_FILES := IPACM_Main.cpp \
 		IPACM_OffloadManager.cpp
 
 LOCAL_MODULE := ipacm
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-BSD
+LOCAL_LICENSE_CONDITIONS := notice
 LOCAL_CLANG := false
 LOCAL_MODULE_TAGS := optional
 
@@ -88,6 +90,8 @@ define ADD_TEST
 
 include $(CLEAR_VARS)
 LOCAL_MODULE       := $1
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-BSD
+LOCAL_LICENSE_CONDITIONS := notice
 LOCAL_SRC_FILES    := $1
 LOCAL_MODULE_CLASS := ipacm
 LOCAL_MODULE_TAGS  := debug
@@ -98,6 +102,8 @@ endef
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := IPACM_cfg.xml
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-BSD
+LOCAL_LICENSE_CONDITIONS := notice
 LOCAL_MODULE_CLASS := ETC
 LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR_ETC)
 LOCAL_MODULE_TAGS := optional
